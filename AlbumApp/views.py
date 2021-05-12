@@ -36,3 +36,34 @@ def groupApi(request,id=0):
         group = Groups.objects.get(GroupId=id)
         group.delete()
         return JsonResponse("Deleted Group Successfully", safe=False)
+
+# ALBUM API
+@csrf_exempt
+def albumApi(request,id=0):
+    # GET REQUEST
+    if request.method=='GET':
+        albums = Albums.objects.all()
+        albums_serializer = AlbumSerializer(albums, many=True)
+        return JsonResponse(albums_serializer.data, safe=False)
+    # POST REQUEST
+    elif request.method=='POST':
+        album_data = JSONParser().parse(request)
+        album_serializer = AlbumSerializer(data=album_data)
+        if album_serializer.is_valid():
+            album_serializer.save()
+            return JsonResponse("Added album Successfully", safe=False)
+        return JsonResponse("Failed to Add album", safe=False)
+    # PUT REQUEST
+    elif request.method=='PUT':
+        album_data = JSONParser().parse(request)
+        album = Albums.objects.get(AlbumId=album_data['AlbumId'])
+        album_serializer = AlbumSerializer(album,data=album_data)
+        if album_serializer.is_valid():
+            album_serializer.save()
+            return JsonResponse("Updated album Successfully", safe=False)
+        return JsonResponse("Failed to Update album", safe=False)
+
+    elif request.method=='DELETE':
+        album = Albums.objects.get(AlbumId=id)
+        album.delete()
+        return JsonResponse("Deleted album Successfully", safe=False)
