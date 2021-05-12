@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'rest_framework',
+    'AlbumApp.apps.AlbumappConfig',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
