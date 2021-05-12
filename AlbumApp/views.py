@@ -8,7 +8,7 @@ from AlbumApp.serializers import AlbumSerializer,GroupSerializer
 
 # GROUP API
 @csrf_exempt
-def GroupApi(request,id=0):
+def groupApi(request,id=0):
     # GET REQUEST
     if request.method=='GET':
         groups = Groups.objects.all()
@@ -31,7 +31,7 @@ def GroupApi(request,id=0):
             group_serializer.save()
             return JsonResponse("Updated Group Successfully", safe=False)
         return JsonResponse("Failed to Update Group", safe=False)
-        
+
     elif request.method=='DELETE':
         group = Groups.objects.get(GroupId=id)
         group.delete()
